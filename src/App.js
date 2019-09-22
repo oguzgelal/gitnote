@@ -2,20 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import styled from 'styled-components/macro';
 import get from 'lodash/get';
 
-import Routes from './Routes';
-
 import api from './redux/api';
-import getTheme from './styles/getTheme';
-import { authActions } from './redux/modules/auth';
+import * as authActions from './redux/modules/auth/actions';
 
-class App extends React.Component {
+const Wrapper = styled.div``;
+
+class Routes extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-    };
+    this.state = {};
   }
 
   componentDidMount() {
@@ -23,36 +22,22 @@ class App extends React.Component {
     this.props.authActions.setAuthObserver();
   }
 
-  // re-render only if mode changes to
-  // avoid recreating theme on the run time
-  shouldComponentUpdate(nextProps) {
-    return get(this.props, 'mode') !== get(nextProps, 'mode');
-  }
-
   render() {
-    const theme = getTheme({ mode: this.props.mode });
-    console.log('theme: ', theme);
 
     return (
-      <StylesProvider injectFirst>
-        <ThemeProvider theme={theme}>
-          <>
-            <CssBaseline />
-            <Routes />
-          </>
-        </ThemeProvider>
-      </StylesProvider>
+      <Wrapper>
+        Hello world
+      </Wrapper>
     );
   }
 }
 
-App.propTypes = {
-  theme: PropTypes.string,
-  authActions: PropTypes.object,
+Routes.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  mode: state.mode,
+  requests: state.requests,
+  auth: state.auth,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -62,4 +47,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(App);
+)(Routes);
