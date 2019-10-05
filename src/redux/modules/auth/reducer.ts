@@ -1,11 +1,12 @@
+import { Auth } from './types';
 import initialState from '../../../config/initialState';
 import * as types from './types';
 
-export default (state = initialState.auth, action = {}) => {
+export default (state: Auth = initialState.auth, action = {}) => {
 
   if (action.type === types.SAVE_USER_TO_STATE) {
     return {
-      ...state.auth,
+      ...state,
       user: action.user
     }
   }

@@ -1,28 +1,35 @@
-import app from 'firebase/app';
+// https://firebase.google.com/docs/reference/js/firebase.html
+import * as firebase from 'firebase/app';
 import 'firebase/auth';
 
-class Api {
+import IFirebase from './interfaces/IFirebase';
 
-  getConfig() {
+class Firebase implements IFirebase {
+
+  app: firebase.app.App;
+  auth: firebase.auth.Auth;
+  authPersistence: firebase.auth.Auth.Persistence;
+
+  getConfig(): Object {
     return {
+      // storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
       apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
       authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
       databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
       projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-      // storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
       messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
       appId: process.env.REACT_APP_FIREBASE_APP_ID,
     }
   }
 
-  init() {
+  init(): void {
 
     // initialize the app
-    app.initializeApp(this.getConfig());
+    this.app = firebase.initializeApp(this.getConfig());
 
     // initialize auth
-    this.auth = app.auth();
-    this.authPersistence = app.auth.Auth.Persistence.LOCAL;
+    this.auth = this.app.auth();
+    this.authPersistence = this.auth.Auth.Persistence.LOCAL;
 
     // set api on window for easy debug
     if (process.env.NODE_ENV !== 'production') {
@@ -31,4 +38,4 @@ class Api {
   }
 }
 
-export default new Api();
+export default Firebase;

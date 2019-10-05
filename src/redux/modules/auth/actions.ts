@@ -1,6 +1,10 @@
 import isNil from 'lodash/isNil';
-import api from '../../api';
+import firebase from '../../../classes/Firebase/instance';
 import * as types from './types';
+
+interface SaveUserToState {
+  type: typeof types.SAVE_USER_TO_STATE,
+}
 
 export const saveUserToState = ({ user }) => ({
   type: types.SAVE_USER_TO_STATE,
@@ -13,22 +17,22 @@ export const removeUserFromState = () => ({
 
 // thunks
 
-export const login = ({ email, password }) => dispatch => {
-  api.auth.setPersistence(api.authPersistence).then(() => {
-    api.auth.signInWithEmailAndPassword(email, password)
+export const login = ({ email, password }) => (dispatch: void) => {
+  firebase.auth.setPersistence(firebase.authPersistence).then(() => {
+    firebase.auth.signInWithEmailAndPassword(email, password)
       .then(res => {})
       .catch(() => dispatch(removeUserFromState()))
   }).catch(() => dispatch(removeUserFromState()))
 }
 
 export const logout = () => dispatch => {
-  api.auth.signOut().then(() => {
+  firebase.auth.signOut().then(() => {
     dispatch(removeUserFromState())
   });
 }
 
 export const setAuthObserver = () => dispatch => {
-  api.auth.onAuthStateChanged(user => {
+  firebase.auth.onAuthStateChanged((user: firebase.User) => {
     console.log('Auth state changed: ', user);
     if (!isNil(user)) {
       dispatch(saveUserToState({

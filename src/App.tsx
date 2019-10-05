@@ -1,24 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components/macro';
-import get from 'lodash/get';
+// import get from 'lodash/get';
 
-import api from './redux/api';
+import firebase from './classes/Firebase/instance';
 import * as authActions from './redux/modules/auth/actions';
 
 const Wrapper = styled.div``;
 
-class Routes extends React.Component {
-  constructor(props, context) {
+type AppState = {};
+type AppProps = {};
+
+class App extends React.Component<AppProps, AppState> {
+  static defaultProps = {};
+
+  constructor(props: AppProps, context: any) {
     super(props, context);
 
-    this.state = {};
+    this.state = {
+    };
   }
 
   componentDidMount() {
-    api.init();
+    firebase.init();
     this.props.authActions.setAuthObserver();
   }
 
@@ -32,9 +38,6 @@ class Routes extends React.Component {
   }
 }
 
-Routes.propTypes = {
-};
-
 const mapStateToProps = (state, ownProps) => ({
   requests: state.requests,
   auth: state.auth,
@@ -47,4 +50,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Routes);
+)(App);
