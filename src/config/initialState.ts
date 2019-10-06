@@ -1,11 +1,7 @@
-import { Auth } from '../redux/modules/auth/types';
+import IReduxState from '../interfaces/IReduxState';
 
-export interface IInitialState {
-  auth: Auth;
-}
-
-const initialState: IInitialState = {
-  auth: {}
+const initialState: IReduxState = {
+  auth: null,
 }
 
 export default initialState;

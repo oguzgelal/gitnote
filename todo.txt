@@ -1,0 +1,12 @@
+-- consideration
+
+1: create IReduxModule interface that classes implement, that has methods like
+`getActionCreators`, `getReducers` etc. ?
+
+2: should classes implement IReduxModule? or should they have a separate class
+(ie. <class_name>ReduxModule.ts) that implements IReduxModule and handles
+actions / thunks /reducers ?
+
+3: get rid of `auth` in Firebase, move it into Auth class, abstract Firebase
+away from it (so we have the ability to replace the authentication system easily
+in the future)

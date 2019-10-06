@@ -4,4 +4,4 @@ class FileSystem implements IFileSystem {
 
 }
 
-export default FileSystem
+export default FileSystem;

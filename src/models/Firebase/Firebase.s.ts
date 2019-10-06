@@ -1,14 +1,11 @@
 // https://firebase.google.com/docs/reference/js/firebase.html
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
+import firebase from 'firebase';
 
 import IFirebase from './interfaces/IFirebase';
 
 class Firebase implements IFirebase {
 
   app: firebase.app.App;
-  auth: firebase.auth.Auth;
-  authPersistence: firebase.auth.Auth.Persistence;
 
   getConfig(): Object {
     return {
@@ -25,17 +22,11 @@ class Firebase implements IFirebase {
   init(): void {
 
     // initialize the app
-    this.app = firebase.initializeApp(this.getConfig());
+    this.app = firebase.initializeApp(
+      this.getConfig()
+    );
 
-    // initialize auth
-    this.auth = this.app.auth();
-    this.authPersistence = this.auth.Auth.Persistence.LOCAL;
-
-    // set api on window for easy debug
-    if (process.env.NODE_ENV !== 'production') {
-      window.api = this;
-    }
   }
 }
 
-export default Firebase;
+export default new Firebase();
