@@ -26,7 +26,9 @@ class AuthRedux implements IReduxModule {
   }
 
   removeUserFromState(): AnyAction {
-    return { type: this.types.REMOVE_USER_FROM_STATE }
+    return {
+      type: this.types.REMOVE_USER_FROM_STATE,
+    }
   }
 
   login() {

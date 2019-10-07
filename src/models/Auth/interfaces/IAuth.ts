@@ -1,4 +1,3 @@
-import firebase from 'firebase';
 import IFirebase from '../../Firebase/interfaces/IFirebase';
 
 interface IAuth {

@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import Base from './components/Base';
 import store from './redux/store';
 
-const app = (
+const app: React.ReactElement = (
   <Provider store={store}>
     <Base />
   </Provider>
