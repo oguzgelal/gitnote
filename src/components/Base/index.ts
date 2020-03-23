@@ -1,5 +1,8 @@
+import BaseProd from './Base.prod';
+
+let Base = BaseProd;
 if (process.env.NODE_ENV === 'production') {
-  module.exports = require('./Base.prod');
-} else {
-  module.exports = require('./Base.dev');
+  Base = require('./Base.dev');
 }
+
+export default Base;

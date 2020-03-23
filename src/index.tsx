@@ -5,13 +5,11 @@ import { Provider } from 'react-redux';
 import Base from './components/Base';
 import store from './redux/store';
 
-const app: React.ReactElement = (
+ReactDOM.render(
   <Provider store={store}>
     <Base />
-  </Provider>
-);
-
-ReactDOM.render(app, document.getElementById('root'));
+  </Provider>,
+  document.getElementById('root') as HTMLElement);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

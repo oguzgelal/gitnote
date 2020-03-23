@@ -4,6 +4,7 @@ import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import DevTools from '../../components/DevTools';
 import initialState from '../../config/initialState';
 import rootReducer from '../rootReducer';
+import IReduxState from '../../interfaces/IReduxState';
 
 export default () => {
 
@@ -12,17 +13,18 @@ export default () => {
     DevTools.instrument(), // redux devtools setup
   );
 
-  const store = createStore(
+  const store = createStore<IReduxState, any, any, any>(
     rootReducer,
     initialState,
     enhancer
   );
 
   if (module.hot) {
-    module.hot.accept('../modules', () => {
-      const nextReducer = require('../modules').default;
+    module.hot.accept('../rootReducer', () => {
+      const nextReducer = require('../rootReducer').default;
       store.replaceReducer(nextReducer);
     });
   }
+
   return store;
 };

@@ -1,16 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import styled from 'styled-components/macro';
 
 import firebase from './models/Firebase/Firebase.s';
 import auth from './models/Auth/Auth.s';
 import authRedux from './models/Auth/AuthRedux.s';
+import IReduxState from './interfaces/IReduxState';
 
 const Wrapper = styled.div``;
 
 type AppState = {};
-type AppProps = {};
+type AppProps = {
+  authActions: typeof authRedux
+};
 
 class App extends React.Component<AppProps, AppState> {
   static defaultProps = {};
@@ -37,12 +40,11 @@ class App extends React.Component<AppProps, AppState> {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  requests: state.requests,
+const mapStateToProps = (state: IReduxState) => ({
   auth: state.auth,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   authActions: bindActionCreators(authRedux.getDispatchableCreators(), dispatch),
 });
 
